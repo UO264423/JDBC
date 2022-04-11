@@ -16,7 +16,7 @@ public class FindMechanicByIdAction implements Action {
 	public void execute() throws BusinessException {
 		// Get info
 		MechanicDto mdto = new MechanicDto();
-		mdto.dni = Console.readString("Enter dni"); 
+		mdto.id = Console.readString("Enter id"); 
 		
 		FindMechanicById fmbi= new FindMechanicById(mdto);
 		mdto = fmbi.execute();

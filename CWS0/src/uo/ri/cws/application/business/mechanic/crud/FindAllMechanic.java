@@ -34,14 +34,9 @@ public class FindAllMechanic {
 			pst = c.prepareStatement(SQL);
 			
 			rs = pst.executeQuery();
-			while(rs.next()) {
-				Console.printf("\t%s %s %s %s\n",  
-					rs.getString(1)
-					,  rs.getString(2) 
-					,  rs.getString(3)
-					,  rs.getString(4)
-				);
-				lmdto = DtoAssembler.toMechanicDtoList(rs);				
+			lmdto = DtoAssembler.toMechanicDtoList(rs);				
+			for(MechanicDto mdto : lmdto) {
+				Console.printf("%s\t%s\t%s\t%s\n",mdto.id,mdto.dni,mdto.name,mdto.surname);
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

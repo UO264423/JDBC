@@ -11,7 +11,7 @@ import uo.ri.cws.application.business.mechanic.MechanicDto;
 import uo.ri.cws.application.business.util.DtoAssembler;
 
 public class FindMechanicById {
-	private static String SQL = "select id, dni, name, surname from TMechanics where id=?";
+	private static String SQL = "select id, dni, name, surname from TMechanics where dni = ? ";
 	MechanicDto mdto;
 
 	public FindMechanicById(MechanicDto mdto) {
@@ -27,17 +27,9 @@ public class FindMechanicById {
 			c = Jdbc.getConnection();
 			
 			pst = c.prepareStatement(SQL);
-			
+			pst.setString(1, mdto.dni);
 			rs = pst.executeQuery();
-			while(rs.next()) {
-				Console.printf("\t%s %s %s %s\n",  
-					rs.getString(1)
-					,  rs.getString(2) 
-					,  rs.getString(3)
-					,  rs.getString(4)
-				);
-				mdtoToReturn = DtoAssembler.toMechanicDto(rs);
-			}
+			mdtoToReturn = DtoAssembler.toMechanicDto(rs);
 			Console.printf("Dni: %d\nNombre: %d\nApellido:\n",mdto.dni,mdto.name,mdto.surname);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
