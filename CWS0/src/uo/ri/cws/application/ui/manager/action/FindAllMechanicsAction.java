@@ -5,7 +5,7 @@ package uo.ri.cws.application.ui.manager.action;
 import alb.util.console.Console;
 import alb.util.menu.Action;
 import uo.ri.cws.application.business.BusinessException;
-import uo.ri.cws.application.business.mechanic.crud.FindAllMechanic;
+import uo.ri.cws.application.business.mechanic.crud.commands.FindAllMechanic;
 
 public class FindAllMechanicsAction implements Action {
 

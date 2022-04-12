@@ -6,7 +6,8 @@ import alb.util.console.Console;
 import alb.util.menu.Action;
 import uo.ri.cws.application.business.BusinessException;
 import uo.ri.cws.application.business.mechanic.MechanicDto;
-import uo.ri.cws.application.business.mechanic.crud.AddMechanic;
+import uo.ri.cws.application.business.mechanic.crud.MechanicCrudServiceImpl;
+import uo.ri.cws.application.business.mechanic.crud.commands.AddMechanic;
 
 public class AddMechanicAction implements Action {
 
@@ -25,9 +26,8 @@ public class AddMechanicAction implements Action {
 		mdto.name=name;
 		mdto.surname=surname;
 		
-		AddMechanic am= new AddMechanic(mdto);
-		
-		am.execute();
+		MechanicCrudServiceImpl mcsi = new MechanicCrudServiceImpl();
+		mcsi.addMechanic(mdto);
 		
 		// Print result
 		Console.println("Mechanic added");

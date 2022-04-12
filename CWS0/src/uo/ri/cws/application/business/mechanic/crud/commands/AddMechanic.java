@@ -1,4 +1,4 @@
-package uo.ri.cws.application.business.mechanic.crud;
+package uo.ri.cws.application.business.mechanic.crud.commands;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
