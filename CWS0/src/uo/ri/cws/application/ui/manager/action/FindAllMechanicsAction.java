@@ -5,7 +5,7 @@ package uo.ri.cws.application.ui.manager.action;
 import alb.util.console.Console;
 import alb.util.menu.Action;
 import uo.ri.cws.application.business.BusinessException;
-import uo.ri.cws.application.business.mechanic.crud.MechanicCrudServiceImpl;
+import uo.ri.cws.application.business.BusinessFactory;
 
 public class FindAllMechanicsAction implements Action {
 
@@ -16,8 +16,7 @@ public class FindAllMechanicsAction implements Action {
 
 		Console.println("\nList of mechanics \n");  
 
-		MechanicCrudServiceImpl mcsi = new MechanicCrudServiceImpl();
-		mcsi.findAllMechanics();
+		BusinessFactory.forMechanicCrudService().findAllMechanics();
 		
 	}
 }
