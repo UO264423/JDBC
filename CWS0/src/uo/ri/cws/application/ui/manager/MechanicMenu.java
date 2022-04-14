@@ -4,6 +4,7 @@ import alb.util.menu.BaseMenu;
 import uo.ri.cws.application.ui.manager.action.AddMechanicAction;
 import uo.ri.cws.application.ui.manager.action.DeleteMechanicAction;
 import uo.ri.cws.application.ui.manager.action.FindAllMechanicsAction;
+import uo.ri.cws.application.ui.manager.action.FindMechanicByDniAction;
 import uo.ri.cws.application.ui.manager.action.FindMechanicByIdAction;
 import uo.ri.cws.application.ui.manager.action.UpdateMechanicAction;
 
@@ -17,6 +18,7 @@ public class MechanicMenu extends BaseMenu {
 			{ "Update mechanic", 	UpdateMechanicAction.class }, 
 			{ "Delete mechanic", 				DeleteMechanicAction.class }, 
 			{ "Find mechanic by id", 				FindMechanicByIdAction.class },
+			{ "Find mechanic by dni", 				FindMechanicByDniAction.class },			
 			{ "List of all mechanics", 				FindAllMechanicsAction.class },
 		};
 	}

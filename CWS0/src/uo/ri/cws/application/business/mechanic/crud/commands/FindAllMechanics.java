@@ -4,44 +4,47 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 import alb.util.console.Console;
 import alb.util.jdbc.Jdbc;
 import uo.ri.cws.application.business.mechanic.MechanicDto;
 import uo.ri.cws.application.business.util.DtoAssembler;
 
-public class FindMechanicById {
-	private static String SQL = "select id, dni, name, surname from TMechanics where id = ? ";
-	String idMechanic;
+public class FindAllMechanics {
+	
+	private static String SQL = "select id, dni, name, surname from TMechanics";
 
-	public FindMechanicById(String idMechanic) {
-		this.idMechanic=idMechanic;
+	
+
+	public FindAllMechanics() {
+
 	}
 	
-	public Optional<MechanicDto> execute(){
-		MechanicDto mdtoToReturn = new MechanicDto();
+	public List<MechanicDto> execute(){
+		List<MechanicDto> lmdto = new ArrayList<MechanicDto>();
 		Connection c = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
+
 		try {
 			c = Jdbc.getConnection();
 			
 			pst = c.prepareStatement(SQL);
-			pst.setString(1, idMechanic);
+			
 			rs = pst.executeQuery();
-			
-			if(rs.next()) {
-				mdtoToReturn = DtoAssembler.toMechanicDto(rs);
+			lmdto = DtoAssembler.toMechanicDtoList(rs);				
+			for(MechanicDto mdto : lmdto) {
+				Console.printf("%s\t%s\t%s\t%s\n",mdto.id,mdto.dni,mdto.name,mdto.surname);
 			}
-			
-			Console.printf("Dni: %s\nNombre: %s\nApellido: %s\n",mdtoToReturn.dni,mdtoToReturn.name,mdtoToReturn.surname);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 		finally {
 			Jdbc.close(rs, pst, c);
 		}
-		return Optional.ofNullable(mdtoToReturn);
+		return lmdto;
 	}
+	
 }

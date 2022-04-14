@@ -6,16 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import alb.util.jdbc.Jdbc;
-import uo.ri.cws.application.business.mechanic.MechanicDto;
 
 public class DeleteMechanic {
 	
 	private static String SQL = "delete from TMechanics where id = ?";
 	
-	MechanicDto mdto;
+	String idMechanic;
 
-	public DeleteMechanic(MechanicDto mdto) {
-		this.mdto=mdto;
+	public DeleteMechanic(String idMechanic) {
+		this.idMechanic=idMechanic;
 	}
 	
 	public void execute() {
@@ -28,7 +27,7 @@ public class DeleteMechanic {
 			c = Jdbc.getConnection();
 			
 			pst = c.prepareStatement(SQL);
-			pst.setString(1, mdto.id);
+			pst.setString(1, idMechanic);
 			
 			pst.executeUpdate();
 			

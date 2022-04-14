@@ -7,7 +7,6 @@ import alb.util.menu.Action;
 import uo.ri.cws.application.business.BusinessException;
 import uo.ri.cws.application.business.mechanic.MechanicDto;
 import uo.ri.cws.application.business.mechanic.crud.MechanicCrudServiceImpl;
-import uo.ri.cws.application.business.mechanic.crud.commands.AddMechanic;
 
 public class AddMechanicAction implements Action {
 
