@@ -12,23 +12,30 @@ import uo.ri.cws.application.business.mechanic.crud.commands.FindAllMechanics;
 import uo.ri.cws.application.business.mechanic.crud.commands.FindMechanicByDni;
 import uo.ri.cws.application.business.mechanic.crud.commands.FindMechanicById;
 import uo.ri.cws.application.business.mechanic.crud.commands.UpdateMechanic;
+import uo.ri.cws.application.business.util.command.CommandExecutor;
+import uo.ri.cws.application.persistence.PersistenceException;
 
 public class MechanicCrudServiceImpl implements MechanicCrudService {
+	
+	private CommandExecutor executor = new CommandExecutor();
 
 	@Override
-	public MechanicDto addMechanic(MechanicDto mechanic) throws BusinessException {
-		return new AddMechanic(mechanic).execute();
+	public MechanicDto addMechanic(MechanicDto mechanic) throws BusinessException, PersistenceException {
+		AddMechanic am = new AddMechanic(mechanic);
+		return executor.execute(am);
 	}
 
 	@Override
-	public void deleteMechanic(String idMechanic) throws BusinessException {
-		 new DeleteMechanic(idMechanic).execute();;
+	public void deleteMechanic(String idMechanic) throws BusinessException, PersistenceException {
+		DeleteMechanic dm = new DeleteMechanic(idMechanic);
+		executor.execute(dm);
 		
 	}
 
 	@Override
-	public void updateMechanic(MechanicDto mechanic) throws BusinessException {
-		new UpdateMechanic(mechanic);
+	public void updateMechanic(MechanicDto mechanic) throws BusinessException, PersistenceException {
+		UpdateMechanic um = new UpdateMechanic(mechanic); 
+		executor.execute(um);
 		
 	}
 

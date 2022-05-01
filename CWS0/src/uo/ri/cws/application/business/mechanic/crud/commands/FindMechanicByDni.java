@@ -12,7 +12,6 @@ import uo.ri.cws.application.business.mechanic.MechanicDto;
 import uo.ri.cws.application.business.util.DtoAssembler;
 
 public class FindMechanicByDni{
-	private static String SQL = "select id, dni, name, surname from TMechanics where dni = ? ";
 	String dniMechanic;
 
 	public FindMechanicByDni(String dniMechanic) {

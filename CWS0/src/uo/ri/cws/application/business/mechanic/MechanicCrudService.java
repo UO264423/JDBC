@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import uo.ri.cws.application.business.BusinessException;
+import uo.ri.cws.application.persistence.PersistenceException;
 
 /**
  * This service is intended to be used by the Manager
@@ -19,16 +20,18 @@ public interface MechanicCrudService {
 	 * @return dto with the id value set to the UUID generated 
 	 * @throws IllegalArgumentException when argument is null or dni is null or empty string
 	 * @throws BusinessException if there already exists another mechanic with the same dni
+	 * @throws PersistenceException 
 	 */
-	MechanicDto addMechanic(MechanicDto mechanic) throws BusinessException;
+	MechanicDto addMechanic(MechanicDto mechanic) throws BusinessException, PersistenceException;
 
 	/**
 	 * @param idMechanic the id of the mechanid to be deleted
 	 * @throws 		BusinessException if the mechanic does not exist or if there are work orders
 	 * registered for this mechanic
+	 * @throws PersistenceException 
 	 * @throws		IllegalArgumentException when argument is null or empty string
 	 */
-	void deleteMechanic(String idMechanic) throws BusinessException;
+	void deleteMechanic(String idMechanic) throws BusinessException, PersistenceException;
 
 	/**
 	 * Updates values for the mechanic specified by the id field,

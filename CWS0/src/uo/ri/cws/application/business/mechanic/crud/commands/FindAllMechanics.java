@@ -11,11 +11,11 @@ import alb.util.console.Console;
 import alb.util.jdbc.Jdbc;
 import uo.ri.cws.application.business.mechanic.MechanicDto;
 import uo.ri.cws.application.business.util.DtoAssembler;
+import uo.ri.cws.application.persistence.PersistenceFactory;
+import uo.ri.cws.application.persistence.mechanic.MechanicGateway;
+import uo.ri.cws.application.persistence.mechanic.MechanicRecord;
 
 public class FindAllMechanics {
-	
-	private static String SQL = "select id, dni, name, surname from TMechanics";
-
 	
 
 	public FindAllMechanics() {
@@ -23,28 +23,12 @@ public class FindAllMechanics {
 	}
 	
 	public List<MechanicDto> execute(){
-		List<MechanicDto> lmdto = new ArrayList<MechanicDto>();
-		Connection c = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
+		MechanicGateway mg = PersistenceFactory.forMechanic();
 
-		try {
-			c = Jdbc.getConnection();
-			
-			pst = c.prepareStatement(SQL);
-			
-			rs = pst.executeQuery();
-			lmdto = DtoAssembler.toMechanicDtoList(rs);				
-			for(MechanicDto mdto : lmdto) {
-				Console.printf("%s\t%s\t%s\t%s\n",mdto.id,mdto.dni,mdto.name,mdto.surname);
-			}
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			Jdbc.close(rs, pst, c);
-		}
-		return lmdto;
+		List<MechanicRecord> mechanicRecords = mg.findAll();
+		
+		return DtoAssembler.toDtoList(mechanicRecords);		
+		
 	}
 	
 }

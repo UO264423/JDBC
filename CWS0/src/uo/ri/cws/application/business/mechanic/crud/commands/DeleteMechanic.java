@@ -1,43 +1,24 @@
 package uo.ri.cws.application.business.mechanic.crud.commands;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import uo.ri.cws.application.business.BusinessException;
+import uo.ri.cws.application.business.util.command.Command;
+import uo.ri.cws.application.persistence.PersistenceFactory;
+import uo.ri.cws.application.persistence.mechanic.MechanicGateway;
 
-import alb.util.jdbc.Jdbc;
-
-public class DeleteMechanic {
+public class DeleteMechanic implements Command<Void>  {
 	
-	private static String SQL = "delete from TMechanics where id = ?";
 	
 	String idMechanic;
 
 	public DeleteMechanic(String idMechanic) {
 		this.idMechanic=idMechanic;
 	}
-	
-	public void execute() {
-		
-		Connection c = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
 
-		try {
-			c = Jdbc.getConnection();
-			
-			pst = c.prepareStatement(SQL);
-			pst.setString(1, idMechanic);
-			
-			pst.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			Jdbc.close(rs, pst, c);
-		}
-		
+
+	@Override
+	public Void execute() throws BusinessException {
+		MechanicGateway mg = PersistenceFactory.forMechanic();
+		mg.remove(idMechanic);
+		return null;
 	}
 }

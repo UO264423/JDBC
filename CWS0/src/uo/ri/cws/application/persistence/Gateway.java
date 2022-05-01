@@ -1,5 +1,6 @@
 package uo.ri.cws.application.persistence;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +34,7 @@ public interface Gateway<T> {
 	/*
 	 * Retrieves all data in a table
 	 */
-	List<T> findAll( ) ;
+	List<T> findAll( )  ;
 
 }
 
