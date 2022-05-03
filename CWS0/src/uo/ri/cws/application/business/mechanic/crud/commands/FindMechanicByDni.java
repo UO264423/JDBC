@@ -1,46 +1,35 @@
 package uo.ri.cws.application.business.mechanic.crud.commands;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.Optional;
 
 import alb.util.console.Console;
-import alb.util.jdbc.Jdbc;
 import uo.ri.cws.application.business.mechanic.MechanicDto;
 import uo.ri.cws.application.business.util.DtoAssembler;
+import uo.ri.cws.application.business.util.command.Command;
+import uo.ri.cws.application.persistence.PersistenceFactory;
+import uo.ri.cws.application.persistence.mechanic.MechanicGateway;
+import uo.ri.cws.application.persistence.mechanic.MechanicRecord;
 
-public class FindMechanicByDni{
+public class FindMechanicByDni implements Command<Optional<MechanicDto>>{
 	String dniMechanic;
 
 	public FindMechanicByDni(String dniMechanic) {
 		this.dniMechanic=dniMechanic;
 	}
 	
+	@Override
 	public Optional<MechanicDto> execute(){
-		MechanicDto mdtoToReturn = new MechanicDto();
-		Connection c = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		try {
-			c = Jdbc.getConnection();
-			
-			pst = c.prepareStatement(SQL);
-			pst.setString(1, dniMechanic);
-			rs = pst.executeQuery();
-			
-			if(rs.next()) {
-				mdtoToReturn = DtoAssembler.toMechanicDto(rs);
-			}
-			
-			Console.printf("Dni: %s\nNombre: %s\nApellido: %s\n",mdtoToReturn.dni,mdtoToReturn.name,mdtoToReturn.surname);
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-		finally {
-			Jdbc.close(rs, pst, c);
-		}
-		return Optional.ofNullable(mdtoToReturn);
+		MechanicGateway mg = PersistenceFactory.forMechanic();
+
+		Optional<MechanicRecord> mechanicRecord = mg.findByDni(this.dniMechanic);
+		Optional<MechanicDto> mdtoToReturn = DtoAssembler.toDto(mechanicRecord);
+		
+		Console.printf("Dni: %s\nNombre: %s\nApellido: %s\n",mdtoToReturn.get().dni,mdtoToReturn.get().name,mdtoToReturn.get().surname);
+
+		return mdtoToReturn;		
+		
 	}
+
+
 }

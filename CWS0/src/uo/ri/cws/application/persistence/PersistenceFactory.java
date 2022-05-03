@@ -1,5 +1,7 @@
 package uo.ri.cws.application.persistence;
 
+import uo.ri.cws.application.persistence.invoice.InvoiceGateway;
+import uo.ri.cws.application.persistence.invoice.impl.InvoiceGatewayImpl;
 /*
 import uo.ri.cws.application.persistence.intervention.InterventionGateway;
 import uo.ri.cws.application.persistence.intervention.impl.InterventionGatewayImpl;
@@ -20,14 +22,18 @@ public class PersistenceFactory {
 	}
 
 	
-	/*
-	public static WorkOrderGateway forWorkOrder() {
-		return new WorkOrderGatewayImpl();
-	}
+	
+	
 
 	public static InvoiceGateway forInvoice() {
 		return new InvoiceGatewayImpl();
 	}
+	
+	/*
+	public static WorkOrderGateway forWorkOrder() {
+		return new WorkOrderGatewayImpl();
+	}
+	
 	
 	public static ClientGateway forClient() {
 		return new ClientGatewayImpl();

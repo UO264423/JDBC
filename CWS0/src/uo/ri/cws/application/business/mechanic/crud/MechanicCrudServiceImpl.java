@@ -40,12 +40,12 @@ public class MechanicCrudServiceImpl implements MechanicCrudService {
 	}
 
 	@Override
-	public Optional<MechanicDto> findMechanicById(String idMechanic) throws BusinessException {
+	public Optional<MechanicDto> findMechanicById(String idMechanic) throws BusinessException, PersistenceException {
 		return new FindMechanicById(idMechanic).execute();
 	}
 
 	@Override
-	public Optional<MechanicDto> findMechanicByDni(String dniMechanic) throws BusinessException {
+	public Optional<MechanicDto> findMechanicByDni(String dniMechanic) throws BusinessException, PersistenceException {
 		return new FindMechanicByDni(dniMechanic).execute();
 	}
 

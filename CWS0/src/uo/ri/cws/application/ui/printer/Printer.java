@@ -5,8 +5,8 @@ import java.util.List;
 import alb.util.console.Console;
 import uo.ri.cws.application.business.client.ClientDto;
 import uo.ri.cws.application.business.invoice.InvoiceDto;
-import uo.ri.cws.application.business.invoice.InvoicingWorkOrderDto;
-import uo.ri.cws.application.business.invoice.PaymentMeanForInvoicingDto;
+//import uo.ri.cws.application.business.invoice.InvoicingWorkOrderDto;
+//import uo.ri.cws.application.business.invoice.PaymentMeanForInvoicingDto;
 import uo.ri.cws.application.business.mechanic.MechanicDto;
 import uo.ri.cws.application.business.paymentmean.CardDto;
 import uo.ri.cws.application.business.paymentmean.PaymentMeanDto;
@@ -89,6 +89,9 @@ public class Printer {
 			printClient(m);
 	}
 
+	
+	/**
+	
 	public static void printPaymentMeansForInvoicing(List<PaymentMeanForInvoicingDto> means) {
 		printPaymentMeanForInvoicingHeader();
 		for (PaymentMeanForInvoicingDto p : means) {
@@ -118,5 +121,5 @@ public class Printer {
 		for (InvoicingWorkOrderDto inv : arg)
 			printInvoicingWorkOrder(inv);
 	}
-
+*/
 }

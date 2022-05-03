@@ -8,6 +8,7 @@ import uo.ri.cws.application.business.invoice.InvoiceDto;
 import uo.ri.cws.application.business.invoice.InvoiceDto.InvoiceStatus;
 import uo.ri.cws.application.business.invoice.InvoicingWorkOrderDto;
 import uo.ri.cws.application.business.mechanic.MechanicDto;
+import uo.ri.cws.application.persistence.invoice.InvoiceRecord;
 //import uo.ri.cws.application.persistence.invoice.InvoiceRecord;
 import uo.ri.cws.application.persistence.mechanic.MechanicRecord;
 //import uo.ri.cws.application.persistence.workorder.WorkOrderRecord;
@@ -19,6 +20,7 @@ public class DtoAssembler {
 				:Optional.ofNullable(toMechanicDto(arg.get()));
 		return result;
 	}
+	
 
 	public static List<MechanicDto> toDtoList(List<MechanicRecord> arg) {
 		List<MechanicDto> result = new ArrayList<MechanicDto> ();
@@ -35,6 +37,26 @@ public class DtoAssembler {
 		result.surname = arg.surname;
 		return result;
 	}
+	
+	
+	public static InvoiceRecord toRecord(InvoiceDto arg) {
+		InvoiceRecord result = new InvoiceRecord();
+		result.id = arg.id;
+		result.number = arg.number;
+		result.status = (String)(arg.status);
+		result.date = arg.date;
+		result.total = arg.total;
+		result.vat = arg.vat;
+		return result;
+	}
+	
+	public static List<InvoiceDto> toDtoListInvoice(List<InvoiceRecord> arg) {
+		List<InvoiceDto> result = new ArrayList<InvoiceDto> ();
+		for (InvoiceRecord mr : arg) 
+			result.add(toDto(mr).get());
+		return result;
+	}
+	
 
 	private static MechanicDto toMechanicDto(MechanicRecord arg) {
 
@@ -47,18 +69,23 @@ public class DtoAssembler {
 	}
 	
 
-/*
-	public static InvoiceDto toDto(InvoiceRecord arg) {
+	public static Optional<InvoiceDto> toDto(InvoiceRecord arg) {
+		Optional<InvoiceDto> result = Optional.ofNullable(toInvoiceDto(arg));
+		return result;
+	}
+	
+
+	public static InvoiceDto toInvoiceDto(InvoiceRecord arg) {
 		InvoiceDto result = new InvoiceDto();
 		result.id = arg.id;
 		result.number = arg.number;
-		result.status = InvoiceStatus.valueOf(arg.status);
+		result.status = (String)(arg.status);
 		result.date = arg.date;
-		result.total = arg.amount;
+		result.total = arg.total;
 		result.vat = arg.vat;
 		return result;
 	}
-
+/*
 	public static List<InvoicingWorkOrderDto> toInvoicingWorkOrderList(List<WorkOrderRecord> arg) {
 		List<InvoicingWorkOrderDto> result = new ArrayList<InvoicingWorkOrderDto> ();
 		for (WorkOrderRecord record : arg) 

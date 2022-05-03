@@ -87,9 +87,9 @@ public class MechanicGatewayImpl implements MechanicGateway {
 		Optional<MechanicRecord> mechanic = Optional.ofNullable(new MechanicRecord());
 		try {
 			c = Jdbc.getConnection();
-			SQL = conf.getProperty("MECHANIC_FIND_ALL");
+			SQL = conf.getProperty("MECHANIC_FIND_BY_ID");
 			pst = c.prepareStatement(SQL);
-			
+			pst.setString(1, id);
 			rs = pst.executeQuery();
 			
 			mechanic = RecordAssembler.toMechanicRecord(rs);
@@ -128,8 +128,34 @@ public class MechanicGatewayImpl implements MechanicGateway {
 
 	@Override
 	public Optional<MechanicRecord> findByDni(String dni) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<MechanicRecord> mechanic = Optional.ofNullable(new MechanicRecord());
+		try{
+			c = Jdbc.getConnection();
+			SQL = conf.getProperty("MECHANIC_FIND_BY_DNI");
+			pst = c.prepareStatement(SQL);
+			pst.setString(1, dni);
+			rs = pst.executeQuery();
+			mechanic = RecordAssembler.toMechanicRecord(rs);
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally{
+			Jdbc.close(rs, pst);
+		}
+		return mechanic;	
 	}
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

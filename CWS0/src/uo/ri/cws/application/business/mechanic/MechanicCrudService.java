@@ -39,25 +39,28 @@ public interface MechanicCrudService {
 	 * @param mechanic A dto identifying the mechanic to update by the field id,
 	 * 					and the data to update in name and surname
 	 * @throws BusinessException if the mechanic does not exist 
+	 * @throws PersistenceException 
 	 * @throws IllegalArgumentException when the argument is null or any of the fields (id, dni, name, surname) are null or empty 
 	 */
-	void updateMechanic(MechanicDto mechanic) throws BusinessException;
+	void updateMechanic(MechanicDto mechanic) throws BusinessException, PersistenceException;
 
 	/**
 	 * @param idMechanic The id of the mechanic to find
 	 * @return the dto for the mechanic or null if there is none with the id
+	 * @throws PersistenceException 
 	 * @throws IllegalArgumentException when argument is null or empty string
 	 *        DOES NOT throw BusinessException
 	 */
-	Optional<MechanicDto> findMechanicById(String idMechanic) throws BusinessException;
+	Optional<MechanicDto> findMechanicById(String idMechanic) throws BusinessException, PersistenceException;
 
 	/**
 	 * @param dniMechanic The dni of the mechanic to find
 	 * @return the dto for the mechanic or null if there is none with this dni
+	 * @throws PersistenceException 
 	 * @throws IllegalArgumentException when argument is null or empty string
 	 *        DOES NOT throw BusinessException
 	 */
-	Optional<MechanicDto> findMechanicByDni(String dniMechanic) throws BusinessException;
+	Optional<MechanicDto> findMechanicByDni(String dniMechanic) throws BusinessException, PersistenceException;
 	
 	
 	/**
@@ -67,7 +70,7 @@ public interface MechanicCrudService {
 	 *
 	 * DOES NOT @throws BusinessException
 	 */
-	List<MechanicDto> findAllMechanics() throws BusinessException;
+	List<MechanicDto> findAllMechanics() throws BusinessException, PersistenceException;
 
 	
 	

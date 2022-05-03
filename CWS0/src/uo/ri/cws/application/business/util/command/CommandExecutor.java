@@ -9,7 +9,7 @@ import uo.ri.cws.application.persistence.PersistenceException;
 
 public class CommandExecutor {
 
-	public <T> T execute(Command<T> cmd) throws BusinessException, PersistenceException {
+	public <T> T execute(Command<T> cmd) throws BusinessException,PersistenceException {
 		Connection c = null;
 		try {
 			try {
