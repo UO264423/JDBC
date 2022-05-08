@@ -1,6 +1,6 @@
-package uo.ri.cws.application.business.invoice;
+package uo.ri.cws.application.persistence.invoice;
 
-public class ChargeDto {
+public class ChargeRecord {
 
 	public String id;
 	public Long version;

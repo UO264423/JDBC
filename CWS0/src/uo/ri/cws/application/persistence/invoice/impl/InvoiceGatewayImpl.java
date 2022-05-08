@@ -1,4 +1,4 @@
-package uo.ri.cws.application.persistence.invoice.impl;
+ ackage uo.ri.cws.application.persistence.invoice.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.ArrayList;
 
 import alb.util.jdbc.Jdbc;
+import uo.ri.cws.application.persistence.PersistenceException;
 import uo.ri.cws.application.persistence.invoice.InvoiceGateway;
 import uo.ri.cws.application.persistence.invoice.InvoiceRecord;
 import uo.ri.cws.application.persistence.util.Conf;
@@ -170,7 +171,9 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 
 	@Override
 	public InvoiceRecord createInvoiceFor(List<String> workOrderIds)
-			throws BusinessException;
+		throws PersistenceException{
+
+	}
 
 	@Override
 	public List<InvoicingWorkOrderRecord> findWorkOrdersByClientDni(String dni)

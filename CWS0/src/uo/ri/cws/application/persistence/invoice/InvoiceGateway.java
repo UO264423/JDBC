@@ -6,6 +6,9 @@ import java.util.List;
 
 import uo.ri.cws.application.business.BusinessException;
 import uo.ri.cws.application.persistence.Gateway;
+import uo.ri.cws.application.persistence.invoice.impl.
+import uo.ri.cws.application.persistence.invoice.
+
 
 public interface InvoiceGateway extends Gateway<InvoiceRecord> {
 
@@ -23,7 +26,7 @@ public interface InvoiceGateway extends Gateway<InvoiceRecord> {
 	 * may produce incorrect values in a concurrent environment because two
 	 * concurrent threads could get the same number.
 	 * @throws SQLException 
-	 *  
+ 	 *  
 	 */
 	Long getNextInvoiceNumber() throws SQLException;
 
