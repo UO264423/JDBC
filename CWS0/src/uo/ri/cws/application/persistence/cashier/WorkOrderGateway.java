@@ -10,11 +10,22 @@ import uo.ri.cws.application.persistence.Gateway;
 */
 public interface WorkOrderGateway extends Gateway<WorkOrderDto>{
 
-	List<WorkOrderRecord> findNotInvoicedWorkordersAction(){
-		
-	}
-	
-	workOrdersBilling
+	List<WorkOrderRecord> findNotInvoicedWorkordersAction(); 
+              
+  
+	/*
+	* Metodo que devuelve el estado de un workorder 
+	* @param id del workorder a comprobar
+	*/
+	boolean checkWorkOrderStatus(String id);
+
+	int findWorkOrderAmmount();
+
+	void linkWorkordersToInvoice();
+
+	boolean	markWorkOrderAsInvoiced();
+
+	void workOrdersBilling();
 
 }	
 
