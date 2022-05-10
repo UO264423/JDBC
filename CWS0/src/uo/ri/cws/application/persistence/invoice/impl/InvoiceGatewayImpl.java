@@ -1,4 +1,4 @@
- ackage uo.ri.cws.application.persistence.invoice.impl;
+package uo.ri.cws.application.persistence.invoice.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +12,7 @@ import alb.util.jdbc.Jdbc;
 import uo.ri.cws.application.persistence.PersistenceException;
 import uo.ri.cws.application.persistence.invoice.InvoiceGateway;
 import uo.ri.cws.application.persistence.invoice.InvoiceRecord;
+import uo.ri.cws.application.persistence.invoice.InvoicingWorkOrderRecord;
 import uo.ri.cws.application.persistence.util.Conf;
 import uo.ri.cws.application.persistence.util.RecordAssembler;
 
@@ -170,32 +171,36 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 	}
 
 	@Override
-	public InvoiceRecord createInvoiceFor(List<String> workOrderIds)
-		throws PersistenceException{
+	public InvoiceRecord createInvoiceFor(List<String> workOrderIds)throws PersistenceException{
 
 	}
 
 	@Override
-	public List<InvoicingWorkOrderRecord> findWorkOrdersByClientDni(String dni)
-			throws BusinessException;
+	public List<InvoicingWorkOrderRecord> findWorkOrdersByClientDni(String dni)throws PersistenceException{
+		return null;
+	}
+	@Override
+	public List<InvoicingWorkOrderRecord> findNotInvoicedWorkOrdersByClientDni(String dni)throws PersistenceException{
+		return null;
+	}
 
 	@Override
-	public List<InvoicingWorkOrderRecord> findNotInvoicedWorkOrdersByClientDni(String dni)
-			throws BusinessException;
+	public List<InvoicingWorkOrderRecord> findWorkOrdersByPlateNumber(String plate)throws PersistenceException{
+		return null;
+	}
 
 	@Override
-	public List<InvoicingWorkOrderRecord> findWorkOrdersByPlateNumber(String plate)
-			throws BusinessException;
+	public Optional<InvoiceRecord> findInvoiceByNumber(Long number) throws PersistenceException{
+		return null;
+	}
 
 	@Override
-	public Optional<InvoiceRecord> findInvoiceByNumber(Long number) throws BusinessException;
+	public List<PaymentMeanForInvoicingRecord> findPayMeansByClientDni(String dni)throws PersistenceException{
+		return null;
+	}
 
 	@Override
-	public List<PaymentMeanForInvoicingRecord> findPayMeansByClientDni(String dni)
-			throws BusinessException;
-
-	@Override
-	public void settleInvoice(String invoiceId, List<ChargeRecord> charges)
-			throws BusinessException;
+	public void settleInvoice(String invoiceId, List<ChargeRecord> charges)throws PersistenceException{
+		
 
 }

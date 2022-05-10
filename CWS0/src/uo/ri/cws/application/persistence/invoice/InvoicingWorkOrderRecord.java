@@ -1,8 +1,8 @@
-package uo.ri.cws.application.business.invoice;
+package uo.ri.cws.application.persistence.invoice;
 
 import java.time.LocalDate;
 
-public class InvoicingWorkOrderDto {
+public class InvoicingWorkOrderRecord {
 	public String id;
 	public String description;
 	public LocalDate date;

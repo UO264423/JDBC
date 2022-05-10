@@ -4,10 +4,8 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.List;
 
-import uo.ri.cws.application.business.BusinessException;
+import uo.ri.cws.application.persistence.PersistenceException;
 import uo.ri.cws.application.persistence.Gateway;
-import uo.ri.cws.application.persistence.invoice.impl.
-import uo.ri.cws.application.persistence.invoice.
 
 
 public interface InvoiceGateway extends Gateway<InvoiceRecord> {
@@ -37,58 +35,58 @@ public interface InvoiceGateway extends Gateway<InvoiceRecord> {
 	 * The new invoice will be in NOT_YET_PAID status, the workorders will be marked
 	 * as INVOICED
 	 * @param the list of workorder ids to bill
-	 * @throws BusinessException if
+	 * @throws PersistenceException if
 	 * 	- the status of any of the workorders is not FINISHED 
 	 *  - any of the workorders does not exist
 	 * @throws IllegalArgumentException if list is null, empty or any of the strings in the
 	 *  		list is empty or null
 	 */
 	InvoiceRecord createInvoiceFor(List<String> workOrderIds)
-			throws BusinessException;
+			throws PersistenceException;
 
 	/**
 	 * Returns a list with info of all the work orders of all the client's vehicles
 	 * @param dni of the client
 	 * @return a list of InvoicingWorkOrderDto or empty list if there is none
-	 * @throws BusinessException DOES NOT
+	 * @throws PersistenceException DOES NOT
 	 */
 	List<InvoicingWorkOrderRecord> findWorkOrdersByClientDni(String dni)
-			throws BusinessException;
+			throws PersistenceException;
 	
 	/**
 	 * Find FINISHED BUT NOT INVOICED workorders due to a client with certain dni.
 	 * @param the dni 
-	 * @throws BusinessException if
+	 * @throws PersistenceException if
 	 * 	- client with this dni does not exist
 	 *         IllegalArgumentException if dni is empty 
 	 */
 	List<InvoicingWorkOrderRecord> findNotInvoicedWorkOrdersByClientDni(String dni)
-			throws BusinessException;
+			throws PersistenceException;
 
 	/**
 	 * Returns a list with info of all the work orders of a vehicle
 	 * @param plate, the plate number of the vehicle
 	 * @return a list of InvoicingWorkOrderDto or empty list if there is none
-	 * @throws BusinessException DOES NOT
+	 * @throws PersistenceException DOES NOT
 	 */
 	List<InvoicingWorkOrderRecord> findWorkOrdersByPlateNumber(String plate)
-			throws BusinessException;
+			throws PersistenceException;
 
 	/**
 	 * @param number, of the invoice
 	 * @return the InvoiceDto with the data of the invoice
-	 * @throws BusinessException DOES NOT
+	 * @throws PersistenceException DOES NOT
 	 */
-	Optional<InvoiceRecord> findInvoiceByNumber(Long number) throws BusinessException;
+	Optional<InvoiceRecord> findInvoiceByNumber(Long number) throws PersistenceException;
 
 	/**
 	 * @param dni of the client
 	 * @return the list of the PaymentMeanDto of a client represented by the dni
 	 * 		or an empty list if none
-	 * @throws BusinessException DOES NOT
+	 * @throws PersistenceException DOES NOT
 	 */
 	List<PaymentMeanForInvoicingRecord> findPayMeansByClientDni(String dni)
-			throws BusinessException;
+			throws PersistenceException;
 
 	/**
 	 * Creates the charges against the indicated payment means (with the amount
@@ -102,7 +100,7 @@ public interface InvoiceGateway extends Gateway<InvoiceRecord> {
 	 * @throws IllegalArgumentException if
 	 *  	- invoiceId is null or empty
 	 *  	- charges is null
-	 * @throws BusinessException if
+	 * @throws PersistenceException if
 	 * 	- there is no invoice for the invoiceId provided
 	 *  - the indicated invoice is already in PAID status
 	 * 	- does not exist any of the payment means indicated by the id
@@ -126,7 +124,7 @@ public interface InvoiceGateway extends Gateway<InvoiceRecord> {
 	 * 		child classes
 	 */
 	void settleInvoice(String invoiceId, List<ChargeRecord> charges)
-			throws BusinessException;
+			throws PersistenceException;
 	
 
 
