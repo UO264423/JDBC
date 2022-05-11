@@ -9,7 +9,7 @@ import uo.ri.cws.application.persistence.mechanic.MechanicGateway;
 
 public class AddMechanic implements Command<MechanicDto> {
 
-	MechanicDto mdto;
+	private MechanicDto mdto;
 
 	public AddMechanic(MechanicDto mdto) {
 		this.mdto = mdto;
