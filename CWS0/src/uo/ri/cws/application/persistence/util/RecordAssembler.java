@@ -9,6 +9,8 @@ import java.time.LocalDate;
 
 import uo.ri.cws.application.persistence.invoice.InvoiceRecord;
 import uo.ri.cws.application.persistence.mechanic.MechanicRecord;
+import uo.ri.cws.application.persistence.cashier.WorkOrderRecord;
+
 
 public class RecordAssembler {
 
@@ -76,8 +78,7 @@ public class RecordAssembler {
 
 
 	
-	/*
-	
+		
 	public static Optional<WorkOrderRecord> toWorkOrderRecord ( ResultSet rs ) throws SQLException {
 		WorkOrderRecord record = null;
 		
@@ -117,6 +118,6 @@ public class RecordAssembler {
 		
 		return record;		
 	}
-	*/
+
 
 }

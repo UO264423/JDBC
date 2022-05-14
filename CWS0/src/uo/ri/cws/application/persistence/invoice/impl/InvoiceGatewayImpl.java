@@ -109,41 +109,26 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 
 	@Override
 	public Optional<InvoiceRecord> findByNumber(Long number) {
-		Optional<InvoiceRecord> invoice = Optional.ofNullable(new InvoiceRecord());
-		try {
-			c = Jdbc.getConnection();
-			SQL = conf.getProperty("INVOICE_FIND_BY_NUM ");
-			pst = c.prepareStatement(SQL);
-			pst.setString(1, "" + number);
-			rs = pst.executeQuery();
 
-			invoice = RecordAssembler.toInvoiceRecord(rs);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			Jdbc.close(rs, pst);
-		}
-		return invoice;
-	}
 
 	@Override
 	public Long getNextInvoiceNumber() throws SQLException {
 		Long number = 1;
 		try {
 			c = Jdbc.getConnection();
-			SQL = conf.getProperty("INVOICE_GET_NEXT_INVOICE_NUMBER");
+ 			SQL = conf.getProperty("INVOICE_GET_NEXT_INVOICE_NUMBER");
 			pst = c.prepareStatement(SQL);
 			rs = pst.executeQuery();
-			number += (int) (rs);
-
+			number += (int) (rs.getInt(0));
+  
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			Jdbc.close(rs, pst);
 		}
-		return number;
+		if(number!=1)
+			return number;
 
 		return null;
 	}
@@ -170,37 +155,32 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 
 	}
 
-	@Override
 	public InvoiceRecord createInvoiceFor(List<String> workOrderIds)throws PersistenceException{
-
+		return null;
 	}
 
-	@Override
 	public List<InvoicingWorkOrderRecord> findWorkOrdersByClientDni(String dni)throws PersistenceException{
 		return null;
 	}
-	@Override
+
 	public List<InvoicingWorkOrderRecord> findNotInvoicedWorkOrdersByClientDni(String dni)throws PersistenceException{
 		return null;
 	}
 
-	@Override
 	public List<InvoicingWorkOrderRecord> findWorkOrdersByPlateNumber(String plate)throws PersistenceException{
 		return null;
 	}
 
-	@Override
 	public Optional<InvoiceRecord> findInvoiceByNumber(Long number) throws PersistenceException{
 		return null;
 	}
 
-	@Override
 	public List<PaymentMeanForInvoicingRecord> findPayMeansByClientDni(String dni)throws PersistenceException{
 		return null;
 	}
 
-	@Override
 	public void settleInvoice(String invoiceId, List<ChargeRecord> charges)throws PersistenceException{
-		
-
+		return;	
+						    
+	}
 }

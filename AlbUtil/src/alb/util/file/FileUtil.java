@@ -1,7 +1,7 @@
 package alb.util.file;
 
 import java.io.InputStream;
-
+ 
 public class FileUtil {
 
 	/**
