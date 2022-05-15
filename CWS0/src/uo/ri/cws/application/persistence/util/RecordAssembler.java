@@ -6,10 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate; 
+import java.sql.Date;
 
+import uo.ri.cws.application.business.workorder.WorkOrderDto;
 import uo.ri.cws.application.persistence.invoice.InvoiceRecord;
 import uo.ri.cws.application.persistence.mechanic.MechanicRecord;
-import uo.ri.cws.application.persistence.cashier.WorkOrderRecord;
+import uo.ri.cws.application.persistence.workorder.WorkOrderRecord;
 
 
 public class RecordAssembler {
@@ -119,5 +121,21 @@ public class RecordAssembler {
 		return record;		
 	}
 
+	private static WorkOrderDto resultSetToWorkOrderDto ( ResultSet rs ) throws SQLException {
+		WorkOrderDto record = new WorkOrderDto();
+		
+		record.id = rs.getString("id");
+		record.version = rs.getLong("version");
 
+		record.vehicleId = rs.getString( "vehicle_Id");
+		record.description = rs.getString( "description");
+		Date sqlDate = rs.getDate( "date");
+		record.date =  sqlDate.toLocalDate(); 
+		record.total = rs.getDouble("amount");
+		record.status = rs.getString( "status");
+		record.mechanicId = rs.getString( "mechanic_Id");
+		record.invoiceId = rs.getString( "invoice_Id");
+		record.usedForVoucher = rs.getBoolean("usedForVoucher");	
+		return record;		
+	}
 }

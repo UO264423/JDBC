@@ -1,6 +1,6 @@
-package uo.ri.cws.application.persistence.cashier;
+package uo.ri.cws.application.persistence.workorder;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
 * WorkOrderRecord
@@ -11,7 +11,7 @@ public class WorkOrderRecord {
 
 	public String vehicleId;
 	public String description;
-	public LocalDateTime date;
+	public LocalDate date;
 	public double total;
 	public String status;
 	public boolean usedForVoucher;

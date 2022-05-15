@@ -1,4 +1,4 @@
-package uo.ri.cws.application.persistence.cashier;
+package uo.ri.cws.application.persistence.workorder;
 
 import java.util.List;
 
@@ -17,15 +17,14 @@ public interface WorkOrderGateway extends Gateway<WorkOrderDto>{
 	* Metodo que devuelve el estado de un workorder 
 	* @param id del workorder a comprobar
 	*/
-	boolean checkWorkOrderStatus(String id);
+	String checkWorkOrderStatus(String id);
 
-	int findWorkOrderAmmount();
+	int findWorkOrderAmmount(String workorderId);
 
-	void linkWorkordersToInvoice();
+	void linkWorkordersToInvoice(String invoiceId,String workorderId);
 
-	boolean	markWorkOrderAsInvoiced();
+	void markWorkOrderAsInvoiced(String workorderId);
 
-	void workOrdersBilling();
 
 }	
 

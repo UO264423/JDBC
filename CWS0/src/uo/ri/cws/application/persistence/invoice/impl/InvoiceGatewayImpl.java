@@ -3,11 +3,9 @@ package uo.ri.cws.application.persistence.invoice.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
-
 import alb.util.jdbc.Jdbc;
 import uo.ri.cws.application.persistence.PersistenceException;
 import uo.ri.cws.application.persistence.invoice.InvoiceGateway;
@@ -15,6 +13,8 @@ import uo.ri.cws.application.persistence.invoice.InvoiceRecord;
 import uo.ri.cws.application.persistence.invoice.InvoicingWorkOrderRecord;
 import uo.ri.cws.application.persistence.util.Conf;
 import uo.ri.cws.application.persistence.util.RecordAssembler;
+import uo.ri.cws.application.persistence.invoice.ChargeRecord;
+import uo.ri.cws.application.business.paymentmean.PaymentMeanForInvoicingDto;
 
 public class InvoiceGatewayImpl implements InvoiceGateway {
 
@@ -39,7 +39,7 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 			pst.setString(6, t.status);
 			pst.setString(7, "" + t.usedForVoucher);
 			pst.executeUpdate();
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -56,7 +56,7 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 			pst = c.prepareStatement(SQL);
 			pst.setString(1, id);
 			pst.executeUpdate();
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -79,7 +79,7 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 			pst.setString(7, "" + t.usedForVoucher);
 			pst.executeUpdate();
 
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			throw new RuntimeException(e);
 		} finally {
 			Jdbc.close(rs, pst, c);
@@ -98,7 +98,7 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 			rs = pst.executeQuery();
 
 			invoice = RecordAssembler.toInvoiceRecord(rs);
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -109,10 +109,26 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 
 	@Override
 	public Optional<InvoiceRecord> findByNumber(Long number) {
+		Optional<InvoiceRecord> invoice = Optional.ofNullable(new InvoiceRecord());
+		try {
+			c = Jdbc.getConnection();
+			SQL = conf.getProperty("INVOICE_FIND_BY_NUMBER");
+			pst = c.prepareStatement(SQL);
+			pst.setString(1, id);
+			rs = pst.executeQuery();
 
+			invoice = RecordAssembler.toInvoiceRecord(rs);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return invoice;
+	}
 
 	@Override
-	public Long getNextInvoiceNumber() throws SQLException {
+	public Long getNextInvoiceNumber() throws PersistenceException {
 		Long number = 1;
 		try {
 			c = Jdbc.getConnection();
@@ -121,7 +137,7 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 			rs = pst.executeQuery();
 			number += (int) (rs.getInt(0));
   
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -145,7 +161,7 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 
 			invoices = RecordAssembler.toInvoiceRecordList(rs);
 			return invoices;
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -155,23 +171,8 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
 
 	}
 
-	public InvoiceRecord createInvoiceFor(List<String> workOrderIds)throws PersistenceException{
-		return null;
-	}
 
-	public List<InvoicingWorkOrderRecord> findWorkOrdersByClientDni(String dni)throws PersistenceException{
-		return null;
-	}
-
-	public List<InvoicingWorkOrderRecord> findNotInvoicedWorkOrdersByClientDni(String dni)throws PersistenceException{
-		return null;
-	}
-
-	public List<InvoicingWorkOrderRecord> findWorkOrdersByPlateNumber(String plate)throws PersistenceException{
-		return null;
-	}
-
-	public Optional<InvoiceRecord> findInvoiceByNumber(Long number) throws PersistenceException{
+ 	public Optional<InvoiceRecord> findInvoiceByNumber(Long number) throws PersistenceException{
 		return null;
 	}
 

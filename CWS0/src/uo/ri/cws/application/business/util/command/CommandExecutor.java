@@ -16,7 +16,7 @@ public class CommandExecutor {
 				c = Jdbc.createThreadConnection();
 				c.setAutoCommit(false);
 
-				T res = cmd.execute();
+				T res = cmd. xecute();
 				
 				c.commit();
 				

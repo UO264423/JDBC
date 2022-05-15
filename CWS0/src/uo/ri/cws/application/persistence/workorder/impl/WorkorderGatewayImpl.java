@@ -1,15 +1,15 @@
-package uo.ri.cws.application.persistence.cashier.impl;
+package uo.ri.cws.application.persistence.workorder.impl;
 
-import uo.ri.cws.application.persistence.cashier.WorkOrderGateway;
-import uo.ri.cws.application.persistence.cashier.WorkOrderRecord;
+import uo.ri.cws.application.persistence.workorder.WorkOrderGateway;
+import uo.ri.cws.application.persistence.workorder.WorkOrderRecord;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Optional;
 import alb.util.jdbc.Jdbc;
+import uo.ri.cws.application.business.workorder.WorkOrderDto;
 import uo.ri.cws.application.persistence.PersistenceException;
 import uo.ri.cws.application.persistence.util.Conf;
 import uo.ri.cws.application.persistence.util.RecordAssembler;
@@ -40,7 +40,7 @@ public class WorkorderGatewayImpl implements WorkOrderGateway{
 			pst = c.prepareStatement(SQL);
  			rs = pst.executeQuery();
 			workorders = RecordAssembler.toWorkOrderRecordList(rs);
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -60,7 +60,7 @@ public class WorkorderGatewayImpl implements WorkOrderGateway{
 			rs = pst.executeQuery();
 
 			workorderStatus = rs.getString("Status");
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
@@ -78,7 +78,7 @@ public class WorkorderGatewayImpl implements WorkOrderGateway{
 			pst.setString(1, invoiceId);
 			pst.setString(2, workorderId);
 			pst.executeUpdate();
-		} catch (SQLException e) {
+		} catch (PersistenceException e) {
 			e.printStackTrace();
 		} finally {
 			Jdbc.close(rs, pst);
@@ -86,23 +86,75 @@ public class WorkorderGatewayImpl implements WorkOrderGateway{
 	}
 	
 	@Override
-	public int findWorkOrderAmmount(){
-
-	} 
+	public int findWorkOrderAmmount(String workorderId){
+		int total=-1;
+		try {
+			c = Jdbc.getConnection();
+			SQL = conf.getProperty("WORKORDER_FIND_AMMOUNT");
+			pst = c.prepareStatement(SQL);
+			pst.setString(1, workorderId);
+			rs = pst.executeQuery();
+			total = rs.getInt(total);
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return total;
+	}
 
 	@Override
-    public boolean	markWorkOrderAsInvoiced(){
+    public void	markWorkOrderAsInvoiced(String workorderId){
+		try {
+			c = Jdbc.getConnection();
+			SQL = conf.getProperty("WORKORDER_MARK_AS_INVOICED");
+			pst = c.prepareStatement(SQL);
+			pst.setString(1, workorderId);
+			pst.executeUpdate();
+		} catch (PersistenceException e) {
+			e.printStackTrace();
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+	}
+
+	@Override
+	public void add(WorkOrderDto t) {
 
 	}
 
 	@Override
-	public void workOrdersBilling(){
+	public void remove(String id) {
+}
+
+	@Override
+	public void update(WorkOrderDto t) {
 
 	}
 
+	@Override
+ 	public Optional<WorkOrderDto> findById(String id) {
+	Optional<WorkOrderDto> workorder = Optional.ofNullable(new WorkOrderDto());
+		try {
+			c = Jdbc.getConnection();
+			SQL = conf.getProperty("WORKODER_FIND_BY_ID");
+			pst = c.prepareStatement(SQL);
+			pst.setString(1, id);
+			rs = pst.executeQuery();
 
-
-
-
+			workorder = RecordAssembler.toWorkOrderDto(rs);
+		} catch (PersistenceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			Jdbc.close(rs, pst);
+		}
+		return workorder;
+	}
 	
+
+	@Override
+	public List<WorkOrderDto> findAll() {
+	return null;	
+	}
 }

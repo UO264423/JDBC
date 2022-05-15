@@ -10,8 +10,9 @@ import uo.ri.cws.application.persistence.invoice.impl.InvoiceGatewayImpl;
 */
 import uo.ri.cws.application.persistence.mechanic.MechanicGateway;
 import uo.ri.cws.application.persistence.mechanic.impl.MechanicGatewayImpl;
-/*
+
 import uo.ri.cws.application.persistence.workorder.WorkOrderGateway;
+/*
 import uo.ri.cws.application.persistence.workorder.impl.WorkOrderGatewayImpl;
 */
 
@@ -29,12 +30,11 @@ public class PersistenceFactory {
 		return new InvoiceGatewayImpl();
 	}
 	
-	/*
 	public static WorkOrderGateway forWorkOrder() {
 		return new WorkOrderGatewayImpl();
 	}
 	
-	
+/*	
 	public static ClientGateway forClient() {
 		return new ClientGatewayImpl();
 	}
