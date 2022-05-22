@@ -1,13 +1,12 @@
-package uo.ri.cws.application.persistence;
-
+package uo.ri.cws.application.persistence.invoice;
+import uo.ri.cws.application.persistence.PersistenceException;
 import java.util.List;
-import 
 /**
-* InvoicedWorkOrderGateway
+* InvoicingWorkorderRecord
 */
-public class InvoicedWorkOrderGateway {
+public class InvoicingWorkOrderGateway {
 	public List<InvoicingWorkOrderRecord> findWorkOrdersByClientDni(String dni)throws PersistenceException{
-		
+		return null;	
 
 	}
 	public List<InvoicingWorkOrderRecord> findNotInvoicedWorkOrdersByClientDni(String dni)throws PersistenceException{
